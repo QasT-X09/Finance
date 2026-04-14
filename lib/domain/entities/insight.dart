@@ -1,0 +1,8 @@
+class Insight {
+  final String id;
+  final String title;
+  final String description;
+  final double? score;
+
+  Insight({required this.id, required this.title, required this.description, this.score});
+}
