@@ -1,56 +1,112 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui';
+
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 
 class BalanceCard extends StatelessWidget {
+  const BalanceCard({
+    super.key,
+    required this.title,
+    required this.amount,
+    this.currencySymbol = r'$',
+    this.percentageChange = '+2.36%',
+    this.onTap,
+  });
+
   final String title;
   final double amount;
   final String currencySymbol;
+  final String percentageChange;
   final VoidCallback? onTap;
 
-  const BalanceCard({super.key, required this.title, required this.amount, this.currencySymbol = r'$', this.onTap});
+  static const _primaryAccent = Color(0xFF4A6CF7);
+  static const _secondaryAccent = Color(0xFF60A5FA);
 
   @override
   Widget build(BuildContext context) {
-    final gradient = const LinearGradient(colors: [Color(0xFF4A6CF7), Color(0xFF60A5FA)], begin: Alignment.topLeft, end: Alignment.bottomRight);
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(gradient: gradient, borderRadius: BorderRadius.circular(20), boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)]),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: GoogleFonts.poppins(color: Colors.white70, fontSize: 14)),
-            const SizedBox(height: 8),
-            Row(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [_primaryAccent, _secondaryAccent],
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(currencySymbol, style: GoogleFonts.poppins(color: Colors.white70, fontSize: 20, fontWeight: FontWeight.w600)),
-                const SizedBox(width: 6),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 400),
-                  child: Text(amount.toStringAsFixed(2), key: ValueKey(amount), style: GoogleFonts.poppins(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w600)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(title, style: const TextStyle(fontSize: 14, color: Colors.white70)),
+                    const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Colors.white24,
+                      child: Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+                    ),
+                  ],
                 ),
-                const Spacer(),
-                CircleAvatar(
-                  backgroundColor: Colors.white24,
-                  child: const Icon(Icons.arrow_forward, color: Colors.white),
-                )
+                const SizedBox(height: 10),
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: amount),
+                  duration: const Duration(milliseconds: 300),
+                  builder: (_, value, __) => Text(
+                    '$currencySymbol${value.toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    const Icon(Icons.trending_up, color: Colors.white, size: 14),
+                    const SizedBox(width: 4),
+                    Text(percentageChange, style: const TextStyle(fontSize: 13)),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 36,
+                  child: LineChart(
+                    LineChartData(
+                      gridData: FlGridData(show: false),
+                      titlesData: FlTitlesData(show: false),
+                      borderData: FlBorderData(show: false),
+                      minX: 0,
+                      maxX: 6,
+                      minY: 0,
+                      maxY: 7,
+                      lineBarsData: [
+                        LineChartBarData(
+                          isCurved: true,
+                          color: Colors.white,
+                          barWidth: 2,
+                          dotData: FlDotData(show: false),
+                          spots: const [
+                            FlSpot(0, 1),
+                            FlSpot(1, 2),
+                            FlSpot(2, 1.7),
+                            FlSpot(3, 3),
+                            FlSpot(4, 4),
+                            FlSpot(5, 3.6),
+                            FlSpot(6, 5.2),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 40,
-              child: LineChart(LineChartData(
-                gridData: FlGridData(show: false),
-                titlesData: FlTitlesData(show: false),
-                borderData: FlBorderData(show: false),
-                lineBarsData: [
-                  LineChartBarData(spots: const [FlSpot(0, 1), FlSpot(1, 1.2), FlSpot(2, 1.1), FlSpot(3, 1.4)], isCurved: true, color: Colors.white70, barWidth: 2, dotData: FlDotData(show: false)),
-                ],
-              )),
-            )
-          ],
+          ),
         ),
       ),
     );
