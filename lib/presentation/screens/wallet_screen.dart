@@ -1,12 +1,10 @@
+import 'package:finance/presentation/theme/app_theme.dart';
 import 'package:finance/presentation/widgets/balance_card.dart';
 import 'package:finance/presentation/widgets/transaction_item.dart';
 import 'package:flutter/material.dart';
 
 class WalletScreen extends StatelessWidget {
   const WalletScreen({super.key});
-
-  static const _glassCard = Color.fromRGBO(255, 255, 255, 0.05);
-  static const _textSecondary = Color(0xFF94A3B8);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +19,11 @@ class WalletScreen extends StatelessWidget {
           const SizedBox(height: 18),
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: _glassCard, borderRadius: BorderRadius.circular(16)),
+            decoration: BoxDecoration(color: AppTheme.glassCard, borderRadius: BorderRadius.circular(16)),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Total receive', style: TextStyle(color: _textSecondary)),
+                Text('Total receive', style: TextStyle(color: AppTheme.textSecondary)),
                 SizedBox(height: 8),
                 LinearProgressIndicator(value: 0.86, minHeight: 8),
                 SizedBox(height: 6),
@@ -48,7 +46,7 @@ class WalletScreen extends StatelessWidget {
           const SizedBox(height: 18),
           const Text('Transaction history', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
           const SizedBox(height: 10),
-          TransactionItem(
+          const TransactionItem(
             title: 'Amazon',
             subtitle: 'Shopping',
             date: DateTime(2026, 1, 10),
@@ -69,24 +67,14 @@ class _CategoryCard extends StatelessWidget {
   final String title;
   final String amount;
 
-  static const _glassCard = Color.fromRGBO(255, 255, 255, 0.05);
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 112,
       height: 92,
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: _glassCard, borderRadius: BorderRadius.circular(14)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon),
-          const Spacer(),
-          Text(title, style: const TextStyle(fontSize: 12)),
-          Text(amount, style: const TextStyle(fontWeight: FontWeight.w600)),
-        ],
-      ),
+      decoration: BoxDecoration(color: AppTheme.glassCard, borderRadius: BorderRadius.circular(14)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Icon(icon), const Spacer(), Text(title, style: const TextStyle(fontSize: 12)), Text(amount, style: const TextStyle(fontWeight: FontWeight.w600))]),
     );
   }
 }

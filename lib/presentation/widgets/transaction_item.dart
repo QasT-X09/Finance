@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:finance/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class TransactionItem extends StatelessWidget {
@@ -19,17 +20,12 @@ class TransactionItem extends StatelessWidget {
   final String logoUrl;
   final bool isExpense;
 
-  static const _glassCard = Color.fromRGBO(255, 255, 255, 0.05);
-  static const _textSecondary = Color(0xFF94A3B8);
-  static const _success = Color(0xFF10B981);
-  static const _danger = Color(0xFFEF4444);
-
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-        color: _glassCard,
+        color: AppTheme.glassCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white10),
       ),
@@ -52,12 +48,12 @@ class TransactionItem extends StatelessWidget {
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
         subtitle: Text(
           '$subtitle · ${date.day}/${date.month}/${date.year}',
-          style: const TextStyle(color: _textSecondary, fontSize: 12),
+          style: const TextStyle(color: AppTheme.textSecondary, fontSize: 12),
         ),
         trailing: Text(
           '${isExpense ? '-' : '+'}\$${amount.toStringAsFixed(2)}',
           style: TextStyle(
-            color: isExpense ? _danger : _success,
+            color: isExpense ? AppTheme.danger : AppTheme.success,
             fontWeight: FontWeight.w600,
           ),
         ),

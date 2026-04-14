@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:finance/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -19,9 +20,6 @@ class BalanceCard extends StatelessWidget {
   final String percentageChange;
   final VoidCallback? onTap;
 
-  static const _primaryAccent = Color(0xFF4A6CF7);
-  static const _secondaryAccent = Color(0xFF60A5FA);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -38,7 +36,7 @@ class BalanceCard extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [_primaryAccent, _secondaryAccent],
+                colors: [AppTheme.primaryAccent, AppTheme.secondaryAccent],
               ),
             ),
             child: Column(
@@ -57,7 +55,7 @@ class BalanceCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 TweenAnimationBuilder<double>(
-                  tween: Tween(begin: 0.0, end: amount),
+                  tween: Tween(begin: 0, end: amount),
                   duration: const Duration(milliseconds: 300),
                   builder: (_, value, __) => Text(
                     '$currencySymbol${value.toStringAsFixed(2)}',
@@ -77,8 +75,8 @@ class BalanceCard extends StatelessWidget {
                   height: 36,
                   child: LineChart(
                     LineChartData(
-                      gridData: FlGridData(show: false),
-                      titlesData: FlTitlesData(show: false),
+                      gridData: const FlGridData(show: false),
+                      titlesData: const FlTitlesData(show: false),
                       borderData: FlBorderData(show: false),
                       minX: 0,
                       maxX: 6,
@@ -89,7 +87,7 @@ class BalanceCard extends StatelessWidget {
                           isCurved: true,
                           color: Colors.white,
                           barWidth: 2,
-                          dotData: FlDotData(show: false),
+                          dotData: const FlDotData(show: false),
                           spots: const [
                             FlSpot(0, 1),
                             FlSpot(1, 2),

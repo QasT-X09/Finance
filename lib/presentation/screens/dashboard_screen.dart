@@ -1,4 +1,5 @@
 import 'package:finance/presentation/bloc/dashboard_cubit.dart';
+import 'package:finance/presentation/theme/app_theme.dart';
 import 'package:finance/presentation/widgets/balance_card.dart';
 import 'package:finance/presentation/widgets/savings_goal_card.dart';
 import 'package:finance/presentation/widgets/transaction_item.dart';
@@ -11,10 +12,6 @@ import 'package:shimmer/shimmer.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
-
-  static const _glassCard = Color.fromRGBO(255, 255, 255, 0.05);
-  static const _primaryAccent = Color(0xFF4A6CF7);
-  static const _secondaryAccent = Color(0xFF60A5FA);
 
   Future<void> _onRefresh() async {
     await Future<void>.delayed(const Duration(milliseconds: 700));
@@ -52,10 +49,7 @@ class DashboardScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
                   ),
                 ),
-                IconButton(
-                  onPressed: () => Get.toNamed('/transactions'),
-                  icon: const Icon(Icons.arrow_forward_ios_rounded),
-                ),
+                IconButton(onPressed: () => Get.toNamed('/transactions'), icon: const Icon(Icons.arrow_forward_ios_rounded))
               ],
             ),
             const SizedBox(height: 16),
@@ -102,14 +96,14 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 18),
-            const _IncomeExpenseCard(),
+            _IncomeExpenseCard(),
             const SizedBox(height: 18),
             const Text('Recent Transactions', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
             const SizedBox(height: 10),
             Shimmer.fromColors(
-              baseColor: _glassCard,
+              baseColor: AppTheme.glassCard,
               highlightColor: Colors.white10,
-              child: TransactionItem(
+              child: const TransactionItem(
                 title: 'Apple',
                 subtitle: 'Subscription',
                 date: DateTime(2026, 1, 12),
@@ -126,18 +120,12 @@ class DashboardScreen extends StatelessWidget {
 }
 
 class _IncomeExpenseCard extends StatelessWidget {
-  const _IncomeExpenseCard();
-
-  static const _glassCard = Color.fromRGBO(255, 255, 255, 0.05);
-  static const _primaryAccent = Color(0xFF4A6CF7);
-  static const _secondaryAccent = Color(0xFF60A5FA);
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: _glassCard,
+        color: AppTheme.glassCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white12),
       ),
@@ -158,28 +146,18 @@ class _IncomeExpenseCard extends StatelessWidget {
                 height: 120,
                 child: BarChart(
                   BarChartData(
-                    gridData: FlGridData(show: false),
+                    gridData: const FlGridData(show: false),
                     borderData: FlBorderData(show: false),
-                    titlesData: FlTitlesData(show: false),
+                    titlesData: const FlTitlesData(show: false),
                     barGroups: List.generate(7, (i) {
                       final values = mode == ChartMode.income
                           ? [8.0, 12.0, 10.0, 13.0, 11.0, 16.0, 14.0]
                           : [7.0, 8.0, 6.0, 9.0, 5.0, 10.0, 8.0];
-                      return BarChartGroupData(
-                        x: i,
-                        barRods: [
-                          BarChartRodData(
-                            toY: values[i],
-                            color: _secondaryAccent,
-                            width: 10,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ],
-                      );
+                      return BarChartGroupData(x: i, barRods: [BarChartRodData(toY: values[i], color: AppTheme.secondaryAccent, width: 10, borderRadius: BorderRadius.circular(4))]);
                     }),
                   ),
                 ),
-              ),
+              )
             ],
           );
         },
@@ -198,7 +176,7 @@ class _IncomeExpenseCard extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: selected ? _primaryAccent : Colors.white10,
+          color: selected ? AppTheme.primaryAccent : Colors.white10,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(label),

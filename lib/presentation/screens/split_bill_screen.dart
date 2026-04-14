@@ -1,11 +1,8 @@
+import 'package:finance/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class SplitBillScreen extends StatelessWidget {
   const SplitBillScreen({super.key});
-
-  static const _primaryAccent = Color(0xFF4A6CF7);
-  static const _glassCard = Color.fromRGBO(255, 255, 255, 0.05);
-  static const _textSecondary = Color(0xFF94A3B8);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,7 @@ class SplitBillScreen extends StatelessWidget {
         const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(color: _primaryAccent, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(color: AppTheme.primaryAccent, borderRadius: BorderRadius.circular(20)),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,14 +54,8 @@ class SplitBillScreen extends StatelessWidget {
   Widget _field(String label, String value) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(color: _glassCard, borderRadius: BorderRadius.circular(14)),
-      child: Row(
-        children: [
-          Text(label),
-          const Spacer(),
-          Text(value, style: const TextStyle(color: _textSecondary)),
-        ],
-      ),
+      decoration: BoxDecoration(color: AppTheme.glassCard, borderRadius: BorderRadius.circular(14)),
+      child: Row(children: [Text(label), const Spacer(), Text(value, style: const TextStyle(color: AppTheme.textSecondary))]),
     );
   }
 }

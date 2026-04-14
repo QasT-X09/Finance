@@ -3,6 +3,7 @@ import 'package:finance/presentation/screens/exchange_screen.dart';
 import 'package:finance/presentation/screens/profile_screen.dart';
 import 'package:finance/presentation/screens/split_bill_screen.dart';
 import 'package:finance/presentation/screens/wallet_screen.dart';
+import 'package:finance/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class RootShell extends StatefulWidget {
@@ -37,7 +38,7 @@ class _RootShellState extends State<RootShell> {
       ),
       bottomNavigationBar: NavigationBar(
         backgroundColor: const Color(0xFF12182E),
-        indicatorColor: const Color(0xFF4A6CF7).withOpacity(0.3),
+        indicatorColor: AppTheme.primaryAccent.withValues(alpha: 0.3),
         selectedIndex: currentIndex,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Home'),

@@ -7,7 +7,7 @@ class TransactionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final txs = [
-      TransactionItem(
+      const TransactionItem(
         title: 'Apple',
         subtitle: 'Subscription',
         date: DateTime(2026, 1, 12),
@@ -15,7 +15,7 @@ class TransactionsScreen extends StatelessWidget {
         logoUrl: 'https://logo.clearbit.com/apple.com',
         isExpense: true,
       ),
-      TransactionItem(
+      const TransactionItem(
         title: 'McDonald\'s',
         subtitle: 'Restaurant',
         date: DateTime(2026, 1, 11),
@@ -23,7 +23,7 @@ class TransactionsScreen extends StatelessWidget {
         logoUrl: 'https://logo.clearbit.com/mcdonalds.com',
         isExpense: true,
       ),
-      TransactionItem(
+      const TransactionItem(
         title: 'Amazon',
         subtitle: 'Shopping',
         date: DateTime(2026, 1, 9),
@@ -31,7 +31,7 @@ class TransactionsScreen extends StatelessWidget {
         logoUrl: 'https://logo.clearbit.com/amazon.com',
         isExpense: true,
       ),
-      TransactionItem(
+      const TransactionItem(
         title: 'Freelance',
         subtitle: 'Income',
         date: DateTime(2026, 1, 8),
